@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nice Koffie — SOP & Flowchart Operasional</title>
+<style>
+span {
+  color: #fffaf0;
+}
+:root{--yellow:#ffc928;--gold:#e3a900;--black:#151515;--brown:#3a2a18;--cream:#fff9e8;--bg:#f7f7f5;--card:#fff;--text:#202020;--muted:#707070;--line:#e7e2d8;--green:#15945a;--red:#df4848;--shadow:0 18px 50px rgba(35,25,5,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 5% 5%,#ffc92818,transparent 25%),radial-gradient(circle at 95% 25%,#ffc92812,transparent 28%)}
+.container{width:min(1180px,92%);margin:auto}
+.hero{min-height:650px;background:linear-gradient(115deg,#121212 0%,#211c13 54%,#8a6500 100%);color:#fff;position:relative;overflow:hidden;padding:42px 0 80px}
+.hero .container{position:relative;z-index:2}
+.hero:after{content:"";position:absolute;inset:auto -130px -250px auto;width:570px;height:570px;border:95px solid #ffc92818;border-radius:50%}
+.hero-top{display:flex;justify-content:space-between;align-items:center;gap:25px}
+.brand{display:flex;align-items:center;gap:13px}.brand img{width:72px;height:72px;object-fit:contain;background:#fff;border-radius:17px;padding:5px;box-shadow:0 10px 30px #0004}.brand-name{font-size:25px;font-weight:950;letter-spacing:-.5px}
+.badge{display:inline-flex;padding:8px 13px;border:1px solid #ffffff30;background:#ffffff12;border-radius:99px;font-size:12px;font-weight:900;letter-spacing:.7px}
+.hero-copy{max-width:620px;margin-top:55px}.hero h1{font-size:clamp(42px,6vw,72px);line-height:.96;letter-spacing:-2.5px;margin:0 0 18px}.hero h1 span{color:var(--yellow)}.hero p{font-size:17px;line-height:1.7;color:#e9e4d8;margin:0}.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:25px}.meta span{background:#ffffff12;border:1px solid #ffffff20;border-radius:12px;padding:10px 13px;font-size:13px}
+.hero-person{position:absolute;z-index:1;right:2%;bottom:-15px;height:min(630px,78vw);max-height:630px;filter:drop-shadow(0 20px 35px #0007);pointer-events:none}
+.hero-person img{height:100%;width:auto;display:block}
+.nav{position:sticky;top:0;z-index:30;background:#fffffff2;backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}.nav .container{display:flex;gap:4px;overflow:auto}.nav a{padding:15px 14px;color:#666;text-decoration:none;font-weight:800;font-size:13px;white-space:nowrap}.nav a:hover{color:#9b7200}
+main{padding-bottom:85px}.overview{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:-43px;position:relative;z-index:3}.stat{background:#fff;border:1px solid var(--line);border-radius:20px;padding:21px;box-shadow:var(--shadow);animation:rise .7s both}.stat:nth-child(2){animation-delay:.08s}.stat:nth-child(3){animation-delay:.16s}.stat:nth-child(4){animation-delay:.24s}.stat .ico{font-size:27px}.stat b{display:block;font-size:25px;margin-top:7px}.stat small{color:var(--muted)}
+section{margin-top:50px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:20px}.section-head h2{margin:0;font-size:30px}.section-head p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.step{background:#fff;border:1px solid var(--line);border-radius:19px;padding:19px 15px;position:relative;box-shadow:0 10px 30px #3825000b;transition:.25s}.step:hover{transform:translateY(-7px);border-color:#e6bd37;box-shadow:0 18px 40px #8d680018}.step:not(:last-child):after{content:"→";position:absolute;right:-18px;top:50%;transform:translateY(-50%);font-size:25px;color:var(--gold);font-weight:900;z-index:2}.num{width:38px;height:38px;border-radius:12px;background:#fff3bf;display:grid;place-items:center;font-weight:950;color:#6f5200}.step .pic{font-size:24px;margin-top:13px}.step h3{font-size:15px;margin:8px 0}.step p{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+.sop-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.sop{background:#fff;border:1px solid var(--line);border-radius:21px;padding:23px;box-shadow:0 10px 30px #38250009;transition:.25s}.sop:hover{transform:translateY(-4px);box-shadow:var(--shadow)}.sop-head{display:flex;gap:13px;align-items:center}.sop-icon{width:49px;height:49px;border-radius:15px;background:#fff4c7;display:grid;place-items:center;font-size:25px}.sop h3{margin:0 0 4px;font-size:17px}.role{font-size:12px;color:#9b7200;font-weight:900}.sop ul{margin:18px 0 0;padding-left:20px;color:#555;font-size:14px;line-height:1.7}.output{margin-top:16px;background:#fffaf0;border:1px solid #f3e2a7;border-radius:12px;padding:11px 13px;font-size:12px;color:var(--muted)}.output strong{color:var(--brown)}
+.decision{display:grid;grid-template-columns:1fr 1fr;gap:18px}.decision-card{background:#fff;border:1px solid var(--line);border-radius:21px;padding:24px}.decision-card h3{margin:0 0 15px}.branch{display:flex;gap:12px;align-items:flex-start;margin:13px 0}.branch .mark{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;flex:0 0 auto}.branch.y .mark{background:var(--green)}.branch.n .mark{background:var(--red)}.branch p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.role-card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:22px;transition:.25s}.role-card:hover{transform:translateY(-5px);border-color:#e6bd37}.role-card .big{font-size:31px}.role-card h3{margin:9px 0 6px}.role-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+.brand-showcase{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:stretch}.brand-photo,.brand-logo{background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);position:relative}.brand-photo img{width:100%;height:430px;object-fit:cover;object-position:center top;display:block}.brand-photo .caption{position:absolute;left:20px;bottom:18px;background:#151515e8;color:#fff;border-radius:14px;padding:12px 15px;font-size:13px}.brand-logo{display:grid;place-items:center;background:linear-gradient(135deg,#fff,#fff8df);padding:35px}.brand-logo img{width:85%;max-width:430px;max-height:330px;object-fit:contain}.brand-logo .caption{position:absolute;left:20px;bottom:18px;color:#7a5b00;font-size:12px;font-weight:800}
+.cta{margin-top:50px;border-radius:25px;padding:32px;background:linear-gradient(120deg,#ffc928,#f4b900);color:#1b170b;display:flex;justify-content:space-between;gap:25px;align-items:center;box-shadow:0 20px 45px #b887001f}.cta h2{margin:0 0 7px}.cta p{margin:0;color:#584300;font-size:14px}.cta .cup{font-size:65px}.footer{background:#151515;color:#aaa;padding:30px 0;font-size:13px}.footer strong{color:var(--yellow)}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media(max-width:1000px){.hero-person{opacity:.42;right:-80px}.hero-copy{position:relative;z-index:3}.overview{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:repeat(3,1fr)}.step:not(:last-child):after{display:none}.roles{grid-template-columns:1fr}.brand-showcase{grid-template-columns:1fr}}
+@media(max-width:650px){.hero{min-height:690px}.hero-top{align-items:flex-start}.brand img{width:58px;height:58px}.brand-name{font-size:20px}.hero-person{height:520px;right:-100px;opacity:.38}.hero-copy{margin-top:40px}.overview{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.sop-grid,.decision{grid-template-columns:1fr}.brand-photo img{height:380px}.cta{display:block}.cta .cup{margin-top:10px}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="container">
+    <div class="hero-top">
+      <div class="brand">
+        <img src="nice-koffie-logo.jpg" alt="Logo Nice Koffie">
+        <div class="brand-name">Nice Koffie</div>
+      </div>
+      <a href="https://drive.google.com/drive/folders/1bzjsSTJPPsRQUe0MR4eHSC6693zTS4Un?usp=sharing"><span class="badge">KLIK SOP LENGKAP</span></a>
+    </div>
+    <div class="hero-copy">
+      <h1>SOP & Flowchart<br><span>Operasional Kopi Keliling</span></h1>
+      <p>Website operasional Nice Koffie untuk memastikan proses kerja konsisten, rapi, higienis, dan mudah dipantau — dari bahan baku sampai rekonsiliasi kas.</p>
+      <div class="meta"><span>☕ Barista</span><span>📦 Gudang</span><span>🚲 Armada</span><span>💳 Cash + QRIS</span><span>💰 Keuangan</span></div>
+    </div>
+  </div>
+  <div class="hero-person"><img src="nice-koffie-team.png" alt="Tim Nice Koffie"></div>
+</header>
+
+<nav class="nav"><div class="container">
+<a href="#brand">Brand</a><a href="#flow">Alur Utama</a><a href="#sop">SOP</a><a href="#decision">Keputusan</a><a href="#roles">PIC</a>
+</div></nav>
+
+<main><div class="container">
+<section class="overview">
+<div class="stat"><div class="ico">🫘</div><b>6</b><small>Tahap utama operasional</small></div>
+<div class="stat"><div class="ico">👥</div><b>3</b><small>Kelompok PIC</small></div>
+<div class="stat"><div class="ico">💳</div><b>2</b><small>Metode pembayaran</small></div>
+<div class="stat"><div class="ico">✓</div><b>2</b><small>Titik keputusan</small></div>
+</section>
+
+<section id="brand">
+<div class="section-head"><div><h2>Nice Koffie</h2><p>Identitas visual dan tim yang digunakan pada website operasional.</p></div></div>
+<div class="brand-showcase">
+  <div class="brand-photo"><img src="nice-koffie-team.png" alt="Tim Nice Koffie memegang produk Nice Koffie"><div class="caption">☕ Nice Koffie — Team & Brand Experience</div></div>
+  <div class="brand-logo"><img src="nice-koffie-logo.jpg" alt="Logo Nice Koffie"><div class="caption"></div></div>
+</div>
+</section>
+
+<section id="flow">
+<div class="section-head"><div><h2>Alur Operasional Nice Koffie</h2><p>Visual proses dari awal sampai uang tercatat di keuangan.</p></div></div>
+<div class="flow">
+<div class="step"><div class="num">01</div><div class="pic">📦</div><h3>Penerimaan Bahan</h3><p>Cek jumlah, kondisi kemasan dan tanggal kedaluwarsa.</p></div>
+<div class="step"><div class="num">02</div><div class="pic">🚲</div><h3>Persiapan Armada</h3><p>Cek kendaraan, tools, es, air panas dan modal awal.</p></div>
+<div class="step"><div class="num">03</div><div class="pic">☕</div><h3>Penjualan</h3><p>Racik sesuai resep dan terima Cash / QRIS.</p></div>
+<div class="step"><div class="num">04</div><div class="pic">🧹</div><h3>Closing</h3><p>Bersihkan peralatan, armada dan hitung stok.</p></div>
+<div class="step"><div class="num">05</div><div class="pic">🧾</div><h3>Rekap Kas</h3><p>Cocokkan uang fisik, QRIS dan total penjualan.</p></div>
+<div class="step"><div class="num">06</div><div class="pic">💰</div><h3>Penyetoran</h3><p>Keuangan memverifikasi dan mencatat setoran.</p></div>
+</div>
+</section>
+
+<section id="sop">
+<div class="section-head"><div><h2>Rincian SOP</h2><p>Checklist kerja untuk panduan harian tim Nice Koffie.</p></div></div>
+<div class="sop-grid">
+<article class="sop"><div class="sop-head"><div class="sop-icon">📦</div><div><h3>01. Penerimaan Bahan Baku</h3><div class="role">GUDANG / BARISTA KELILING</div></div></div><ul><li>Cek kuantitas dan kondisi fisik kemasan.</li><li>Cek tanggal kedaluwarsa dan kesegaran.</li><li>Tolak atau kembalikan bahan yang rusak/bocor.</li></ul><div class="output"><strong>Output:</strong> Form Penerimaan Barang (GRN)</div></article>
+<article class="sop"><div class="sop-head"><div class="sop-icon">🚲</div><div><h3>02. Persiapan Armada & Tools</h3><div class="role">BARISTA KELILING</div></div></div><ul><li>Siapkan modal uang kembalian.</li><li>Isi es batu higienis dan air panas termos.</li><li>Cek kebersihan kendaraan, grinder dan perlengkapan.</li></ul><div class="output"><strong>Output:</strong> Checklist Pra-Operasional</div></article>
+<article class="sop"><div class="sop-head"><div class="sop-icon">☕</div><div><h3>03. Penjualan & Operasional</h3><div class="role">BARISTA KELILING</div></div></div><ul><li>Sapa pelanggan dengan ramah.</li><li>Buat minuman sesuai standar resep dan jigger.</li><li>Terima pembayaran Cash / QRIS secara akurat.</li></ul><div class="output"><strong>Output:</strong> Struk Penjualan / Laporan POS</div></article>
+<article class="sop"><div class="sop-head"><div class="sop-icon">🧹</div><div><h3>04. Closing & Pembersihan</h3><div class="role">BARISTA KELILING</div></div></div><ul><li>Cuci bersih peralatan pembuatan kopi.</li><li>Pastikan area jualan bersih dari ampas dan sampah.</li><li>Hitung sisa stok bahan baku.</li></ul><div class="output"><strong>Output:</strong> Form Stock Opname Harian</div></article>
+<article class="sop"><div class="sop-head"><div class="sop-icon">🧾</div><div><h3>05. Rekap & Penyetoran Kas</h3><div class="role">BARISTA & STAF KEUANGAN</div></div></div><ul><li>Hitung fisik uang tunai.</li><li>Pisahkan modal awal dan hasil penjualan.</li><li>Serahkan uang dan laporan kepada Keuangan.</li></ul><div class="output"><strong>Output:</strong> Form Setoran Kas & Tanda Terima Uang</div></article>
+<article class="sop"><div class="sop-head"><div class="sop-icon">🏦</div><div><h3>06. Penyetoran Uang</h3><div class="role">TIM KEUANGAN / KASIR UTAMA</div></div></div><ul><li>Terima uang fisik dan modal awal.</li><li>Periksa resi QRIS dan form rekap harian.</li><li>Verifikasi, validasi dan tanda tangani bukti kas.</li></ul><div class="output"><strong>Output:</strong> Uang Tersetor & Tercatat di Keuangan</div></article>
+</div>
+</section>
+
+<section id="decision">
+<div class="section-head"><div><h2>Titik Keputusan</h2><p>Gunakan dua checkpoint ini sebelum proses dilanjutkan.</p></div></div>
+<div class="decision">
+<div class="decision-card"><h3>🔍 QC Bahan Baku</h3><div class="branch y"><div class="mark">✓</div><p><b>YA — Sesuai standar.</b><br>Lanjut simpan ke inventaris / persiapkan barang dagangan.</p></div><div class="branch n"><div class="mark">×</div><p><b>TIDAK — Tidak sesuai.</b><br>Retur ke pemasok / gudang dan catat berita acara.</p></div></div>
+<div class="decision-card"><h3>💰 Rekonsiliasi Kas</h3><div class="branch y"><div class="mark">✓</div><p><b>SEIMBANG.</b><br>Uang tunai + QRIS cocok dengan total porsi terjual. Lanjut penyetoran.</p></div><div class="branch n"><div class="mark">×</div><p><b>SELISIH.</b><br>Buat Catatan Selisih Kas (Kurang/Lebih) dan investigasi penyebab.</p></div></div>
+</div>
+</section>
+
+<section id="roles">
+<div class="section-head"><div><h2>Penanggung Jawab</h2><p>Pembagian fungsi kerja operasional Nice Koffie.</p></div></div>
+<div class="roles">
+<div class="role-card"><div class="big">📦</div><h3>Gudang / Logistik</h3><p>Penerimaan dan penyimpanan bahan baku serta pengecekan kuantitas, kemasan dan ED.</p></div>
+<div class="role-card"><div class="big">☕</div><h3>Barista / Operator</h3><p>Persiapan, penjualan, pembayaran, closing, stock opname dan rekap kas harian.</p></div>
+<div class="role-card"><div class="big">💰</div><h3>Keuangan / Kasir</h3><p>Verifikasi kas, rekonsiliasi, penyetoran dan validasi bukti tanda terima.</p></div>
+</div>
+</section>
+
+<div class="cta"><div><h2>☕ NICE KOFFIE</h2><p>Kerja rapi. Produk konsisten. Kas terkendali.</p></div><div class="cup">☕</div></div>
+</div></main>
+<footer class="footer"><div class="container"><strong>Nice Koffie</strong> • SOP & Flowchart Operasional Kopi Keliling<br>SOP-MCO-2026/01 • Revisi 00 • Berlaku 2026</div></footer>
+</body>
+</html>
