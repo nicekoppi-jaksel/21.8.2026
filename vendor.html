@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direktori Vendor — Katalog Belanja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .subvendor-link{ margin:14px 0 32px; text-align:right; }
+  .vendor-link{ margin:24px 0 8px; text-align:center; }
+  .visit-btn{
+    display:inline-block; padding:10px 18px; border-radius:999px;
+    background:#1f2937; color:#fff; text-decoration:none;
+    font-family:"Plus Jakarta Sans",sans-serif; font-weight:600; font-size:14px;
+    transition:opacity .15s ease;
+  }
+  .vendor-link .visit-btn{ padding:12px 26px; font-size:15px; }
+  .visit-btn:hover{ opacity:.85; }
+</style>
+</head>
+<body>
+
+<div class="wrap hero">
+  <span class="eyebrow"><span class="dot"></span>Katalog pengadaan · diperbarui Agustus 2026</span>
+  <h1>Direktori <em>Vendor</em> untuk kebutuhan usaha Anda</h1>
+  <p>Kumpulan vendor armada, dapur produksi (central kitchen), kemasan produk, hingga sistem kasir — lengkap dengan harga, spesifikasi, dan kontak WhatsApp langsung.</p>
+</div>
+
+<nav class="subnav">
+  <div class="wrap subnav-inner" id="subnavInner"></div>
+</nav>
+
+<div class="wrap" id="app"></div>
+
+<footer class="wrap">
+  <div class="note">
+    
+  </div>
+  Direktori Vendor · dibuat untuk kebutuhan internal pengadaan nice kopi 21 Agustus 2026
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-slides" id="modalSlides">
+      <div class="modal-close" id="modalClose">✕</div>
+      <div class="modal-nav prev" id="modalPrev">‹</div>
+      <div class="modal-nav next" id="modalNext">›</div>
+      <div class="dots" id="modalDots"></div>
+    </div>
+    <div class="modal-info">
+      <h4 id="modalBrand"></h4>
+      <span class="price" id="modalPrice"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+const WA_NUMBER = "6281234567890"; // contoh — ganti dengan nomor admin masing-masing vendor
+
+// ---------- DATA ----------
+// Tiap produk sudah punya 4 slot "photos". Isi tiap string dengan path foto
+// dari folder Anda sendiri, contoh: "foto/selis-1.jpg" atau "foto/selis-2.jpg".
+// Taruh folder "foto" (atau nama lain) satu tingkat dengan file HTML ini.
+// Slot yang masih string kosong "" akan tampil polos tanpa ilustrasi apa pun
+// sampai Anda isi sendiri.
+const DATA = [
+  {
+    id:"armada", title:"Vendor Armada", icon:"🛵", pa:"#FCE2A4", pb:"#EFB84B",
+    link:"armada.html", linkLabel:"Komparasi Produk",
+    items:[
+      {brand:"Selis", model:"Pujasera Lite", price:"Rp 12.700.000", loc:"Cikupa", spec:["Pujasera Lite","Box","Stiker","Payung"], photos:["foto/selis1.jpg","foto/selis2.jpg","foto/selis3.jpg",""], wa:"6281111111111"},
+      {brand:"Goda", model:"", price:"Rp 11.000.000", loc:"-", spec:["Power rear 500 watt","Baterai SLA 48 Volt","Box dimensi custom"], photos:["foto/goda1.jpg","foto/goda2.jpeg","foto/goda3.jpg",""], wa:"6282222222222"},
+      {brand:"Uwinfly", model:"", price:"Rp 10.500.000", loc:"Surabaya", spec:["Box","Material 5 ply","Layer ACP"], photos:["foto/uwinfly1.jpg","foto/uwinfly2.jpg","",""]},
+    ]
+  },
+  {
+    id:"central-kitchen", title:"Vendor Central Kitchen", icon:"🍳", pa:"#FCE2A4", pb:"#EFB84B",
+    link:"https://docs.google.com/spreadsheets/d/1jTCT-5ST1_BN3mIwO2XwiPzuSzfqotdWjcixm2UyEeY/edit?gid=1880051800#gid=1880051800", linkLabel:"Google Sheet Biasa",
+    subvendors:[
+      { name:"Chiller", icon:"🧊", pa:"#DCE9F4", pb:"#AFCBE0", link:"Chiler.html", linkLabel:"Comparasi Chiler", items:[
+        {brand:"GEA", model:"Expo-1000 VFC", price:"Rp 17.000.000", loc:"-", spec:["Panjang 115 cm","Lebar 72 cm","Tinggi 209 cm","Volume 1050 L"], photos:["foto/gea1.jpg","foto/gea2.jpg","",""]},
+        {brand:"RSA", model:"Ruby-200", price:"Rp 3.589.000", loc:"-", spec:["Panjang 54 cm","Lebar 56 cm","Tinggi 132 cm","Volume 200 L"], photos:["foto/rsa1.webp","","",""]},
+        {brand:"RPN2", model:"Plasma", price:"Rp 12.250.000", loc:"-", spec:[], photos:["foto/rpn21.webp","","",""]},
+      ]},
+      { name:"Freezer", icon:"❄️", pa:"#DCEFEA", pb:"#A9D6C7", link:"Frezzer.html", linkLabel:"komparasi Frezzer", items:[
+        {brand:"Changhong", model:"FCF-266DW", price:"Rp 2.459.000", loc:"-", spec:["Kapasitas 220 Liter"], photos:["foto/chng1.webp","foto/chng2.webp","",""]},
+        {brand:"GEA", model:"AB-208-R", price:"Rp 2.900.000", loc:"-", spec:["Kapasitas 210 Liter"], photos:["foto/geaf1.webp","foto/geaf1.webp","",""]},
+      ]},
+      { name:"Meja Stainless", icon:"🍽️", pa:"#EDEDED", pb:"#CFCFCF", link:"https://www.monotaro.co.id", linkLabel:"Belum valid", items:[
+        {brand:"Monotaro", model:"RWT-186C-2", price:"Rp 879.000", loc:"-", spec:["Ukuran 1800 x 600 mm"], photos:["foto/mono1.webp","","",""]},
+        {brand:"Monotaro", model:"RWT-186C-2", price:"Rp 879.000", loc:"-", spec:["Ukuran 1800 x 600 mm"], photos:["","","",""]},
+      ]},
+      { name:"Dispenser Juicer", icon:"🧃", pa:"#FBE3D6", pb:"#F0B48F", link:"https://www.pamos.co.id", linkLabel:"Belum Valid", items:[
+        {brand:"Pamos", model:"JD315ST", price:"Rp 7.307.645", loc:"-", spec:[], photos:["foto/pamos1.webp","","",""]},
+        {brand:"Pamos", model:"JD315ST", price:"Rp 7.307.645", loc:"-", spec:[], photos:["","","",""]},
+      ]},
+      { name:"Mixer", icon:"🥣", pa:"#F5E6C8", pb:"#E3C583", link:"https://www.tokopedia.com/search?st=product&q=mixer%20TNW", linkLabel:"Belum Valid", items:[
+        {brand:"TNW", model:"Mixer6", price:"Rp 80.000", loc:"-", spec:[], photos:["foto/mixer1.webp","","",""]},
+        {brand:"Mini Hand Mixer", model:"", price:"Rp 28.000", loc:"-", spec:[], photos:["foto/hm1.webp","","",""]},
+      ]},
+      { name:"Rak Storage", icon:"🗄️", pa:"#E7E2D3", pb:"#C9BF9E", link:"https://www.thechallenger.id", linkLabel:"Belum Valid", items:[
+        {brand:"TheChallenger", model:"4 Layer", price:"Rp 618.000", loc:"-", spec:["Ukuran 100 x 40 x 182 cm"], photos:["foto/chlange1.webp","foto/chlange2.webp","",""]},
+        {brand:"Asli Original", model:"3 Layer", price:"Rp 445.000", loc:"-", spec:["Ukuran 68 x 33 x 78 cm"], photos:["foto/rak1.webp","foto/rak2.webp","",""]},
+      ]},
+      { name:"Wadah Minuman 25 L", icon:"🚰", pa:"#DCEAF6", pb:"#A9CDEA", link:"", linkLabel:"Belum Valid", items:[
+        {brand:"Bintang Prabot", model:"", price:"Rp 99.900", loc:"-", spec:["Kapasitas 25 L","Sudah termasuk kran"], photos:["foto/wadah1.webp","","",""]},
+        {brand:"Lovenia", model:"", price:"Rp 48.900", loc:"-", spec:["Kapasitas 25 L","Sudah termasuk kran"], photos:["foto/lovenia1.jpeg","foto/lovenia2.jpeg","",""]},
+      ]},
+      { name:"Dispenser Air Panas", icon:"♨️", pa:"#FBE0DE", pb:"#EFA9A4", link:"https://www.tokopedia.com/search?st=product&q=dispenser%20air%20panas", linkLabel:"Belum Valid", items:[
+        {brand:"Arashi", model:"", price:"Rp 763.000", loc:"-", spec:[], photos:["foto/arasi1.webp","foto/arasi2.webp","",""]},
+        {brand:"Hugo", model:"", price:"Rp 200.000", loc:"-", spec:[], photos:["foto/da1.jpeg","foto/da2.jpeg","",""]},
+      ]},
+      { name:"Sealer Cup Auto", icon:"🥤", pa:"#F5E6C8", pb:"#E3C583", link:"Sealer.html", linkLabel:"komparasi sealer", items:[
+        {brand:"Wilman", model:"CS4", price:"Rp 3.990.000", loc:"-", spec:[], photos:["foto/wilman1.webp","foto/wilman2.webp","",""]},
+        {brand:"Gatera", model:"ETH3S", price:"Rp 4.790.000", loc:"-", spec:[], photos:["foto/gatera.jpg","","",""]},
+      ]},
+    ]
+  },
+  {
+    id:"produk", title:"Vendor Produk", icon:"🥤", pa:"#FBEBC8", pb:"#EFCB78",
+    link:"https://docs.google.com/spreadsheets/d/1jTCT-5ST1_BN3mIwO2XwiPzuSzfqotdWjcixm2UyEeY/edit?gid=1880051800#gid=1880051800", linkLabel:"Google Sheet Biasa",
+    items:[
+      {brand:"PT. Starindo Jaya", model:"Cup + Printing", price:"Rp 400", loc:"Tangerang", spec:["Ukuran 12 Oz"], photos:["","","",""]},
+      {brand:"PT. Starindo Jaya", model:"Penutup Cup", price:"Rp 150", loc:"Tangerang", spec:[], photos:["","","",""]},
+      {brand:"Poly Cup", model:"Cup", price:"Rp 435", loc:"Bogor", spec:["Ukuran 12 Oz"], photos:["","","",""]},
+      {brand:"PT. Starindo Jaya", model:"Penutup Cup", price:"Rp 165", loc:"Bogor", spec:[], photos:["","","",""]},
+    ]
+  },
+  {
+    id:"sistem", title:"Vendor Sistem & Aplikasi", icon:"💻", pa:"#E7E4F4", pb:"#BEB6E6",
+    link:"https://docs.google.com/spreadsheets/d/1jTCT-5ST1_BN3mIwO2XwiPzuSzfqotdWjcixm2UyEeY/edit?gid=1880051800#gid=1880051800", linkLabel:"Google Sheet Biasa",
+    items:[
+      {brand:"Kolabo", model:"ERP", price:"Rp 12.500.000", loc:"-", spec:["Modul HR","Modul POS","Modul ERP"], photos:["","","",""]},
+    ]
+  },
+];
+
+// ---------- HELPERS ----------
+function locPin(){
+  return `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>`;
+}
+function waLink(item){
+  const modelTxt = item.model ? ` (${item.model})` : "";
+  const msg = `Halo, saya tertarik dengan produk ${item.brand}${modelTxt} — ${item.price}. Boleh info lebih lanjut?`;
+  const nomor = item.wa || WA_NUMBER; // pakai nomor khusus item ini jika diisi, kalau tidak pakai WA_NUMBER default
+  return `https://wa.me/${nomor}?text=${encodeURIComponent(msg)}`;
+}
+function specListHTML(spec){
+  if(!spec || spec.length===0){
+    return `<ul class="specs empty"><li>Spesifikasi belum tersedia</li></ul>`;
+  }
+  return `<ul class="specs">${spec.map(s=>`<li>${s}</li>`).join("")}</ul>`;
+}
+function cardHTML(item, pa, pb, idx){
+  const modelTag = item.model ? `<span class="model">${item.model}</span>` : "";
+  const photos = item.photos || [];
+  const photoCount = photos.length;
+  const firstPhoto = photos[0] || "";
+  const thumbInner = firstPhoto ? `<img src="${firstPhoto}" alt="${item.brand}" loading="lazy">` : "";
+  const modalPayload = { brand:item.brand, model:item.model, price:item.price, pa, pb, photos };
+  return `
+  <div class="card">
+    <button class="photo-btn" onclick='openModal(${JSON.stringify(modalPayload).replace(/'/g,"&apos;")})'>
+      <div class="photo" style="--photo-a:${pa};--photo-b:${pb}">
+        ${thumbInner}
+        <div class="glaze"></div>
+        <div class="tag-hole"></div>
+        <span class="stack-badge">📷 1/${photoCount}</span>
+        <span class="zoom-hint">Lihat ${photoCount} foto →</span>
+      </div>
+    </button>
+    <div class="body">
+      <div class="brand-row">
+        <h4>${item.brand}</h4>
+        ${modelTag}
+      </div>
+      <span class="price">${item.price}</span>
+      <span class="loc">${locPin()} ${item.loc}</span>
+      ${specListHTML(item.spec)}
+      <div class="wa-btn">
+        <a href="${waLink(item)}" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.2-1.36a9.9 9.9 0 0 0 4.84 1.24h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2Zm5.8 14.24c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.02.28-3.42-.72-2.87-1.2-4.7-4.13-4.85-4.32-.14-.2-1.15-1.53-1.15-2.92s.73-2.06.99-2.34c.24-.27.53-.33.7-.33h.5c.16 0 .38-.03.58.44.24.57.8 1.96.87 2.1.07.15.11.32.02.51-.09.2-.14.32-.27.49-.14.17-.29.38-.41.5-.14.14-.28.29-.12.56.16.28.7 1.15 1.51 1.86 1.04.93 1.91 1.22 2.19 1.36.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.27.36-.22.6-.13.25.09 1.6.75 1.87.89.28.13.46.2.53.31.07.11.07.62-.17 1.3Z"/></svg>
+          Hubungi via WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ---------- RENDER ----------
+const app = document.getElementById("app");
+const subnavInner = document.getElementById("subnavInner");
+let cardCounter = 0;
+
+DATA.forEach((sec, si)=>{
+  subnavInner.innerHTML += `<a href="#${sec.id}">${sec.icon} ${sec.title}</a>`;
+
+  const section = document.createElement("section");
+  section.className = "vendor";
+  section.id = sec.id;
+
+  let inner = `
+    <div class="section-head">
+      <div>
+        <span class="num">Section 0${si+1}</span>
+        <h2>${sec.icon} ${sec.title}</h2>
+      </div>
+      <span class="count">${sec.items ? sec.items.length + " item" : sec.subvendors.length + " sub-vendor"}</span>
+    </div>`;
+
+  if(sec.items){
+    inner += `<div class="grid">`;
+    sec.items.forEach(item=>{ inner += cardHTML(item, sec.pa, sec.pb, cardCounter++); });
+    inner += `</div>`;
+  }
+
+  if(sec.subvendors){
+    inner += `<div class="pillbar" id="pillbar-${sec.id}">`;
+    sec.subvendors.forEach((sv,i)=>{
+      inner += `<div class="pill ${i===0?'active':''}" data-target="sub-${sec.id}-${i}">${sv.icon} ${sv.name} <span class="n">${sv.items.length}</span></div>`;
+    });
+    inner += `</div>`;
+
+    sec.subvendors.forEach((sv,i)=>{
+      inner += `<div class="subvendor-block" id="sub-${sec.id}-${i}" style="${i===0?'':'display:none'}">
+        <h3><span class="ic">${sv.icon}</span>${sv.name}</h3>
+        <div class="grid">`;
+      sv.items.forEach(item=>{ inner += cardHTML(item, sv.pa, sv.pb, cardCounter++); });
+      inner += `</div>`;
+      // tombol link khusus sub-vendor ini (isi sv.link & sv.linkLabel di DATA untuk mengaktifkan)
+      if(sv.link){
+        inner += `<div class="subvendor-link">
+          <a href="${sv.link}" target="_blank" rel="noopener" class="visit-btn">${sv.linkLabel || "Kunjungi Website"} →</a>
+        </div>`;
+      }
+      inner += `</div>`;
+    });
+  }
+
+  section.innerHTML = inner;
+  app.appendChild(section);
+
+  // tombol link khusus untuk section vendor ini (isi sec.link & sec.linkLabel di DATA untuk mengaktifkan)
+  if(sec.link){
+    const linkBar = document.createElement("div");
+    linkBar.className = "vendor-link";
+    linkBar.innerHTML = `<a href="${sec.link}" target="_blank" rel="noopener" class="visit-btn">${sec.linkLabel || "Kunjungi Website"} →</a>`;
+    section.appendChild(linkBar);
+  }
+});
+
+// pill switching
+document.querySelectorAll(".pillbar").forEach(bar=>{
+  bar.addEventListener("click", e=>{
+    const pill = e.target.closest(".pill");
+    if(!pill) return;
+    const parent = pill.closest(".vendor");
+    parent.querySelectorAll(".pill").forEach(p=>p.classList.remove("active"));
+    pill.classList.add("active");
+    parent.querySelectorAll(".subvendor-block").forEach(b=>b.style.display = "none");
+    document.getElementById(pill.dataset.target).style.display = "";
+  });
+});
+
+// ---------- MODAL / CAROUSEL ----------
+const overlay = document.getElementById("modalOverlay");
+const slidesWrap = document.getElementById("modalSlides");
+const dotsWrap = document.getElementById("modalDots");
+const modalBrand = document.getElementById("modalBrand");
+const modalPrice = document.getElementById("modalPrice");
+let curSlide = 0, totalSlides = 4;
+
+function openModal(data){
+  modalBrand.textContent = data.model ? `${data.brand} — ${data.model}` : data.brand;
+  modalPrice.textContent = data.price;
+  curSlide = 0;
+  const photos = data.photos || [];
+  totalSlides = photos.length || 1;
+
+  let slidesHTML = "";
+  for(let i=0;i<totalSlides;i++){
+    const src = photos[i] || "";
+    const inner = src ? `<img src="${src}" alt="${data.brand}">` : "";
+    slidesHTML += `<div class="slide ${i===0?'active':''}" style="--photo-a:${data.pa};--photo-b:${data.pb}" data-i="${i}">${inner}</div>`;
+  }
+  // rebuild slides but keep nav/close/dots containers
+  slidesWrap.querySelectorAll(".slide").forEach(s=>s.remove());
+  slidesWrap.insertAdjacentHTML("afterbegin", slidesHTML);
+
+  dotsWrap.innerHTML = "";
+  for(let i=0;i<totalSlides;i++){
+    dotsWrap.innerHTML += `<span class="${i===0?'active':''}"></span>`;
+  }
+
+  overlay.classList.add("open");
+}
+function showSlide(i){
+  const slides = slidesWrap.querySelectorAll(".slide");
+  const dots = dotsWrap.querySelectorAll("span");
+  curSlide = (i + totalSlides) % totalSlides;
+  slides.forEach((s,idx)=>s.classList.toggle("active", idx===curSlide));
+  dots.forEach((d,idx)=>d.classList.toggle("active", idx===curSlide));
+}
+document.getElementById("modalPrev").addEventListener("click", ()=>showSlide(curSlide-1));
+document.getElementById("modalNext").addEventListener("click", ()=>showSlide(curSlide+1));
+document.getElementById("modalClose").addEventListener("click", ()=>overlay.classList.remove("open"));
+overlay.addEventListener("click", ()=>overlay.classList.remove("open"));
+
+// swipe support
+let touchStartX = 0;
+slidesWrap.addEventListener("touchstart", e=>{ touchStartX = e.changedTouches[0].screenX; });
+slidesWrap.addEventListener("touchend", e=>{
+  const dx = e.changedTouches[0].screenX - touchStartX;
+  if(Math.abs(dx) > 40) showSlide(curSlide + (dx < 0 ? 1 : -1));
+});
+
+document.addEventListener("keydown", e=>{
+  if(!overlay.classList.contains("open")) return;
+  if(e.key==="Escape") overlay.classList.remove("open");
+  if(e.key==="ArrowRight") showSlide(curSlide+1);
+  if(e.key==="ArrowLeft") showSlide(curSlide-1);
+});
+</script>
+</body>
+</html>
